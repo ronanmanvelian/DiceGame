@@ -110,27 +110,48 @@ def play_game():
     sides_of_dice = possible_sides_of_dice[dice_sides_selection]
 
     opponents = ["Mark", "Alice", "Ronan", "Sydney", "John", "Brianna", "Bill", "Taylor", "Joe", "Ashley"]
-    opponent_selection = numpy.random.randint(0, len(opponents) - 1)
+    opponent_selection = numpy.random.randint(0, len(opponents))
     opponent = opponents[opponent_selection]
 
     opponent_traits = ["is feeling confident today", "looks as if sleep wasn't their priority last night",
                        "seems to be having a bad hair day", "gives you a little smirk", "came prepared",
                        "is eating a rich chocolate ice cream", "had a bit too much to drink",
-                       "was your high school nemesis", "stares you down"]
-    opponent_trait_selection = numpy.random.randint(0, 9)
+                       "was your high school nemesis", "stares you down", "yawns loudly"]
+    opponent_trait_selection = numpy.random.randint(0, len(opponent_traits))
     opponent_trait = opponent_traits[opponent_trait_selection]
 
     print("Your opponent, " + opponent + ", " + opponent_trait + ".")
     print()
 
-    print(str(possible_num_of_dice[num_of_dice]) + " dice will be rolled.")
+    print(str(num_of_dice) + " dice will be rolled.")
     print("Each die has " + str(sides_of_dice) + " sides.")
 
     print()
     sum_choice = input("Think Carefully! Choose a sum: ")
     print()
 
-    print(opponent + " chose a sum of ")
+    largest_possible_sum = num_of_dice * sides_of_dice
+    third_of_largest_possible_sum = largest_possible_sum // 3
+
+    superb_player_sum = numpy.random.randint((largest_possible_sum // 2) + 1, ((largest_possible_sum + num_of_dice) // 2) + 1)
+    great_player_sum = numpy.random.randint(largest_possible_sum // 2, ((largest_possible_sum + num_of_dice) // 2) + 2)
+    good_player_sum = numpy.random.randint(third_of_largest_possible_sum, third_of_largest_possible_sum * 2)
+    average_player_sum = numpy.random.randint(num_of_dice, largest_possible_sum + 1)
+
+    if opponent_trait == "came prepared":
+        opponent_sum_choice = superb_player_sum
+    elif opponent_trait == "gives you a little smirk":
+        opponent_sum_choice = great_player_sum
+    elif opponent_trait == "is feeling confident today":
+        opponent_sum_choice = great_player_sum
+    elif opponent_trait == "was your high school nemesis":
+        opponent_sum_choice = good_player_sum
+    elif opponent_trait == "stares you down":
+        opponent_sum_choice = good_player_sum
+    else:
+        opponent_sum_choice = average_player_sum
+
+    print(opponent + " chose a sum of " + str(opponent_sum_choice) + ".")
 
 
 def main():
