@@ -5,7 +5,6 @@ probabilityOfSumB = 0
 d = 0
 
 def introMessage():
-
     print()
     print("Welcome to the Dice Gamble Game! Your goal is to predict a sum")
     print("that is most likely to be rolled from a certain number of dice.")
@@ -19,8 +18,8 @@ def introMessage():
 
     selectMode()
 
-def selectMode():
 
+def selectMode():
     validResponse = False
     while validResponse == False:
         userChoice = input("Please enter your choice: ")
@@ -36,12 +35,12 @@ def selectMode():
             print("Invalid entry, please try again.")
             print()
 
+
 def probabilityComparison(sumTargetA, sumTargetB, numOfDice):
-     
-    if abs(probabilityOfSumA - probabilityOfSumB) <= (1/ 6**d): 
+    if abs(probabilityOfSumA - probabilityOfSumB) <= 0.001:
         print(str(sumTargetA) + " and " + str(sumTargetB) + " are equally likely to be the sums of a roll")
         print("of " + str(numOfDice) + " dice.")
-    else:    
+    else:
         if probabilityOfSumA > probabilityOfSumB:
             print("Therefore, the probability of obtaining a sum of " + str(sumTargetA) + " is")
             print("greater than the probability of obtaining a sum of " + str(sumTargetB) + ".")
@@ -49,23 +48,21 @@ def probabilityComparison(sumTargetA, sumTargetB, numOfDice):
             print("Therefore, the probability of obtaining a sum of " + str(sumTargetB) + " is")
             print("greater than the probability of obtaining a sum of " + str(sumTargetA) + ".")
 
-    print()    
-           
-def runSimulations():
+    print()
 
+
+def runSimulations():
     global probabilityOfSumA
     global probabilityOfSumB
     global d
     sumACount = 0
     sumBCount = 0
-    simulationCount = 0         
-    n = 1000000                 
-    diceSum = 0                 
+    simulationCount = 0
+    n = 1000000
+    diceSum = 0
 
-    print()
-
-    d = int(input("Enter the number of dice you will roll: ")) 
-    a = int(input("Enter a target sum: ")) 
+    d = int(input("Enter the number of dice you will roll: "))
+    a = int(input("Enter a target sum: "))
     b = int(input("Enter another target sum: "))
 
     print()
@@ -101,29 +98,46 @@ def runSimulations():
 
     selectMode()
 
-def playGame():
 
+def playGame():
     possibleNumOfDice = [3, 4, 5, 6, 7, 8]
     diceNumSelection = numpy.random.randint(0, len(possibleNumOfDice) - 1)
     numOfDice = possibleNumOfDice[diceNumSelection]
 
-    opponents = ["Mark", "Alice", "Bill", "Sydney", "John", "Brianna", "Ronan", "Taylor", "Joe", "Ashley"]
+    possibleSidesOfDice = [6, 8, 10, 12, 14, 16]
+    diceSidesSelection = numpy.random.randint(0, len(possibleSidesOfDice) - 1)
+    sidesOfDice = possibleSidesOfDice[diceSidesSelection]
+
+    opponents = ["Mark", "Alice", "Ronan", "Sydney", "John", "Brianna", "Bill", "Taylor", "Joe", "Ashley"]
     opponentSelection = numpy.random.randint(0, len(opponents) - 1)
     opponent = opponents[opponentSelection]
 
     opponentTraits = ["is feeling confident today", "looks as if sleep wasn't their priority last night",
-                     "seems to be having a bad hair day", "gives you a little smirk", "came prepared",
-                     "is eating a rich chocolate ice cream", "had a bit too much to drink",
-                     "was your high school nemesis", "stares you down"]
+                      "seems to be having a bad hair day", "gives you a little smirk", "came prepared",
+                      "is eating a rich chocolate ice cream", "had a bit too much to drink",
+                      "was your high school nemesis", "stares you down"]
     opponentTraitSelection = numpy.random.randint(0, 9)
     opponentTrait = opponentTraits[opponentTraitSelection]
-    
+
     print("Your opponent, " + opponent + ", " + opponentTrait + ".")
+    print()
+
+    print(str(possibleNumOfDice[numOfDice]) + " dice will be rolled.")
+    print("Each die has " + str(sidesOfDice) + " sides.")
+
+    print()
+    sumChoice = input("Think Carefully! Choose a sum: ")
+    print()
+
+
+
+    print(opponent + " chose a sum of ")
+
+
 
 def main():
-
     introMessage()
-    runSimulations()
+
 
 if __name__ == "__main__":
     main()
