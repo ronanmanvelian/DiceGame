@@ -1,7 +1,7 @@
 import numpy
 
-probabilityOfSumA = 0
-probabilityOfSumB = 0
+probability_of_sum_a = 0
+probability_of_sum_b = 0
 d = 0
 
 def intro_message():
@@ -37,11 +37,11 @@ def select_mode():
 
 
 def probability_comparison(sum_target_a, sum_target_b, num_of_dice):
-    if abs(probabilityOfSumA - probabilityOfSumB) <= 0.001:
+    if abs(probability_of_sum_a - probability_of_sum_b) <= 0.001:
         print(str(sum_target_a) + " and " + str(sum_target_b) + " are equally likely to be the sums of a roll")
         print("of " + str(num_of_dice) + " dice.")
     else:
-        if probabilityOfSumA > probabilityOfSumB:
+        if probability_of_sum_a > probability_of_sum_b:
             print("Therefore, the probability of obtaining a sum of " + str(sum_target_a) + " is")
             print("greater than the probability of obtaining a sum of " + str(sum_target_b) + ".")
         else:
@@ -52,9 +52,10 @@ def probability_comparison(sum_target_a, sum_target_b, num_of_dice):
 
 
 def run_simulations():
-    global probabilityOfSumA
-    global probabilityOfSumB
+    global probability_of_sum_a
+    global probability_of_sum_b
     global d
+
     sum_a_count = 0
     sum_b_count = 0
     simulation_count = 0
@@ -80,15 +81,15 @@ def run_simulations():
         dice_sum = 0
         simulation_count += 1
 
-    probabilityOfSumA = sum_a_count / n
-    probabilityOfSumB = sum_b_count / n
+    probability_of_sum_a = sum_a_count / n
+    probability_of_sum_b = sum_b_count / n
 
     print("Your first target sum, " + str(a) + " was rolled " + str(sum_a_count) + " times.")
     print("Your second target sum, " + str(b) + " was rolled " + str(sum_b_count) + " times.")
     print()
     print("Based on these results, out of " + str(n) + " simulations, the")
-    print("probability of obtaining a sum of " + str(a) + " is " + str(probabilityOfSumA) + ", and")
-    print("The probability of obtaining a sum of " + str(b) + " is " + str(probabilityOfSumB) + ".")
+    print("probability of obtaining a sum of " + str(a) + " is " + str(probability_of_sum_a) + ", and")
+    print("The probability of obtaining a sum of " + str(b) + " is " + str(probability_of_sum_b) + ".")
     print()
 
     probability_comparison(a, b, d)
@@ -113,9 +114,9 @@ def play_game():
     opponent = opponents[opponent_selection]
 
     opponent_traits = ["is feeling confident today", "looks as if sleep wasn't their priority last night",
-                      "seems to be having a bad hair day", "gives you a little smirk", "came prepared",
-                      "is eating a rich chocolate ice cream", "had a bit too much to drink",
-                      "was your high school nemesis", "stares you down"]
+                       "seems to be having a bad hair day", "gives you a little smirk", "came prepared",
+                       "is eating a rich chocolate ice cream", "had a bit too much to drink",
+                       "was your high school nemesis", "stares you down"]
     opponent_trait_selection = numpy.random.randint(0, 9)
     opponent_trait = opponent_traits[opponent_trait_selection]
 
