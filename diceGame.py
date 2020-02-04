@@ -103,7 +103,7 @@ def runSimulations():
 
 def playGame():
 
-    possibleNumOfDice = [3, 4, 5, 6, 7]
+    possibleNumOfDice = [3, 4, 5, 6, 7, 8]
     diceNumSelection = numpy.random.randint(0, len(possibleNumOfDice) - 1)
     numOfDice = possibleNumOfDice[diceNumSelection]
 
