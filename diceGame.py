@@ -33,6 +33,11 @@ def select_mode():
             print()
             valid_response = True
             play_game()
+        elif user_choice == "Q" or user_choice == "q":
+            print()
+            print("Thanks for playing!")
+            print()
+            valid_response = True
         else:
             print("Invalid entry, please try again.")
             print()
@@ -135,7 +140,7 @@ def run_simulations():
 
     probability_comparison(a, b, d)
 
-    print("Would you like to play the game (P), or do you want to run more simulations (S)?")
+    print("Would you like to play the game (P), run more simulations (S), or quit (Q)?")
     print()
 
     select_mode()
