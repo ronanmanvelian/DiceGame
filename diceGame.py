@@ -7,7 +7,7 @@ d = 0
 
 def intro_message():
     print()
-    print("Welcome to the Dice Gamble Game! Your goal is to predict a sum")
+    print("Welcome to the Dice Game! Your goal is to predict a sum")
     print("that is most likely to be rolled from a certain number of dice.")
     print()
     print("You can either play now or run some simulations to get a feel")
@@ -22,19 +22,59 @@ def intro_message():
 
 def select_mode():
     valid_response = False
+
     while not valid_response:
         user_choice = input("Please enter your choice: ")
         if user_choice == "S" or user_choice == "s":
-            valid_response = True
             print()
+            valid_response = True
             run_simulations()
         elif user_choice == "P" or user_choice == "p":
-            valid_response = True
             print()
+            valid_response = True
             play_game()
         else:
             print("Invalid entry, please try again.")
             print()
+
+
+def roll_dice(dice_count, sides_count):
+    largest_possible_roll = dice_count * sides_count
+    sum_rolled = numpy.random.randint(dice_count, largest_possible_roll + 1)
+    p_pressed = False
+
+    while not p_pressed:
+        prompt = input("Enter R to roll the " + str(dice_count) + " dice: ")
+        print()
+        if prompt == "R" or prompt == "r":
+            print("A sum of " + str(sum_rolled) + " was rolled.")
+            print()
+            return sum_rolled
+        else:
+            print("Invalid entry, please try again.")
+            print()
+
+
+def play_again():
+    valid_response = False
+
+    while not valid_response:
+        choice = input("Enter P to play again, S to run simulations, or Q to quit: ")
+        if choice == "P" or choice == "p":
+            valid_response = True
+            print()
+            play_game()
+        elif choice == "S" or choice == "s":
+            valid_response = True
+            print()
+            run_simulations()
+        elif choice == "Q" or choice == "q":
+            print()
+            print("Thanks for playing!")
+            print()
+            valid_response = True
+        else:
+            print("Invalid entry, please try again.")
 
 
 def probability_comparison(sum_target_a, sum_target_b, num_of_dice):
@@ -116,7 +156,7 @@ def play_game():
 
     opponent_traits = ["is feeling confident today", "looks as if sleep wasn't their priority last night",
                        "seems to be having a bad hair day", "gives you a little smirk", "came prepared",
-                       "is eating a rich chocolate ice cream", "had a bit too much to drink",
+                       "is eating a rich chocolate ice cream", "seems to be listening to music",
                        "was your high school nemesis", "stares you down", "yawns loudly"]
     opponent_trait_selection = numpy.random.randint(0, len(opponent_traits))
     opponent_trait = opponent_traits[opponent_trait_selection]
@@ -128,23 +168,23 @@ def play_game():
     print("Each die has " + str(sides_of_dice) + " sides.")
 
     print()
-    sum_choice = input("Think Carefully! Choose a sum: ")
+    sum_choice = int(input("Think Carefully! Choose a sum: "))
     print()
 
     largest_possible_sum = num_of_dice * sides_of_dice
     third_of_largest_possible_sum = largest_possible_sum // 3
 
-    champ_sum = numpy.random.randint((largest_possible_sum // 2) + 1, ((largest_possible_sum + num_of_dice) // 2) + 1)
-    great_player_sum = numpy.random.randint(largest_possible_sum // 2, ((largest_possible_sum + num_of_dice) // 2) + 2)
-    good_player_sum = numpy.random.randint(third_of_largest_possible_sum, third_of_largest_possible_sum * 2)
+    champ_sum = numpy.random.randint((largest_possible_sum // 2), ((largest_possible_sum // 2) + num_of_dice + 1))
+    star_player_sum = numpy.random.randint(largest_possible_sum // 2, ((largest_possible_sum + num_of_dice) // 2) + 2)
+    good_player_sum = numpy.random.randint(third_of_largest_possible_sum, (third_of_largest_possible_sum * 2) + 1)
     average_player_sum = numpy.random.randint(num_of_dice, largest_possible_sum + 1)
 
     if opponent_trait == "came prepared":
         opponent_sum_choice = champ_sum
     elif opponent_trait == "gives you a little smirk":
-        opponent_sum_choice = great_player_sum
+        opponent_sum_choice = star_player_sum
     elif opponent_trait == "is feeling confident today":
-        opponent_sum_choice = great_player_sum
+        opponent_sum_choice = star_player_sum
     elif opponent_trait == "was your high school nemesis":
         opponent_sum_choice = good_player_sum
     elif opponent_trait == "stares you down":
@@ -153,6 +193,21 @@ def play_game():
         opponent_sum_choice = average_player_sum
 
     print(opponent + " chose a sum of " + str(opponent_sum_choice) + ".")
+    print()
+
+    dice_sum = roll_dice(num_of_dice, sides_of_dice)
+
+    if abs(sum_choice - dice_sum) < abs(opponent_sum_choice - dice_sum):
+        print("You won the game!")
+        print()
+    elif abs(sum_choice - dice_sum) > abs(opponent_sum_choice - dice_sum):
+        print(opponent + " won the game...")
+        print()
+    else:
+        print("It's a tie!")
+        print()
+
+    play_again()
 
 
 def main():
