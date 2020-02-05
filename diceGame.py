@@ -109,6 +109,7 @@ def run_simulations():
     dice_sum = 0
 
     d = int(input("Enter the number of dice you will roll: "))
+    s = int(input("Enter the number of sides for each die:"))
     a = int(input("Enter a target sum: "))
     b = int(input("Enter another target sum: "))
 
@@ -118,7 +119,7 @@ def run_simulations():
 
     while simulation_count < n:
         for roll in range(0, d):
-            roll_value = numpy.random.randint(1, 7)
+            roll_value = numpy.random.randint(1, s + 1)
             dice_sum += roll_value
         if dice_sum == a:
             sum_a_count += 1
